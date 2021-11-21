@@ -1,4 +1,4 @@
-const fileErrorsHandler = require('./errors/fileErrorHandler');
+const { FilesExistingError } = require('./errors/errors');
 const fs = require('fs');
 const Writable = require('stream').Writable;
 
@@ -13,16 +13,22 @@ class WriteToFileStream extends Writable {
 
     _construct(callback) {
         fs.open(this.filePath, 'r+',(error, fd) => {
-            if (error) fileErrorsHandler(error, callback)
+            if (error) {
+                if (error.code === 'ENOENT') {
+                    const customError = new FilesExistingError('File or path does not exit');
+                    callback(customError);
+                    // throw customError;
+                } else {
+                    callback(error);
+                    // throw error;
+                }
+            }
             else {
                 this.fd = fd;
                 fs.fstat(this.fd, (error, stats ) => {
-                    if (error) fileErrorsHandler(error, callback)
-                    else {
-                        this.stats = stats;
-                        this.nextStartPoint = this.stats.size;
-                        callback();
-                    }
+                    this.stats = stats;
+                    this.nextStartPoint = this.stats.size;
+                    callback();
                 });
             }
         });

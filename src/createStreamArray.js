@@ -3,7 +3,7 @@ const AdbashStream = require('./AdbashStream');
 const CaesarCipherStream = require('./CaesarCipherStream');
 const ROT8 = require('./ROT8Stream');
 
-function createStreamArray(config = '') {
+function createStreamArray(config) {
     const possibleConf = ['A', 'C0', 'C1', 'R0', 'R1'];
     const streamsConf = config.split('-');
     streamsConf.forEach((conf) => {

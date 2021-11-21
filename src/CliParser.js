@@ -24,10 +24,9 @@ function cliParser() {
         if (key === '-i' || key === '--input') input += 1;
         if (input > 1) throw new CliParserError('Parametr --input (-i) can not repeat more then one time');
 
-        if (key === '-o' || key === '--output') input += 1;
+        if (key === '-o' || key === '--output') output += 1;
         if (output > 1) throw new CliParserError('Parametr --output (-o) can not repeat more then one time');
     });
-
     if (config === 0) throw new CliParserError('Param --config (-c) is required');
 
     if (argQty > (config + input + output)) throw new CliParserError('You can use only 3 params: \n1) --config(-c);\n2) --input(-i);\n2) --output(-o)');

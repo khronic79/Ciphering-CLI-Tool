@@ -16,29 +16,11 @@ try {
 let inputStream;
 let outputStream;
 
-if (argsObj.input) {
-    try {
-        inputStream = new ReadFromFileStream(argsObj.input);
-    } catch (error) {
-        errorsHandler(error);
-    }
-} else {
-    try {
-        inputStream = process.stdin;
-    } catch {
-        errorsHandler(error);
-    }
-}
+if (argsObj.input) inputStream = new ReadFromFileStream(argsObj.input) 
+else inputStream = process.stdin;
 
-if (argsObj.output) {
-    try {
-        outputStream = new WriteToFileStream(argsObj.output);
-    } catch (error) {
-        errorsHandler(error);
-    }
-} else {
-    outputStream = process.stdout;
-}
+if (argsObj.output) outputStream = new WriteToFileStream(argsObj.output)
+else  outputStream = process.stdout;
 
 let streams;
 
@@ -54,7 +36,7 @@ pipeline(
     outputStream,
     (err) => {
         if (err) {
-          console.error('Pipeline failed.', err);
+            errorsHandler(err);
         } else {
           console.log('Pipeline succeeded.');
         }

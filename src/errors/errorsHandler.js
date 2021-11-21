@@ -1,11 +1,9 @@
-const { DefaultAppError } = require('./errors');
-
-function errorsHandler (error = new DefaultAppError()) {
+function errorsHandler (error) {
     const { isCustom } = error;
 
     if (isCustom) {
         process.stderr.write(error.message);
-        process.exit(error.errorCode);
+        process.exit(error.code);
     } else {
         throw error;
     }
