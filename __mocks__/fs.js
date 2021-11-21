@@ -136,8 +136,6 @@ function close(fd, cb) {
     });
 }
 
-
-
 fs.__createMockFiles = __createMockFiles;
 
 fs.__getFileContent = __getFileContent;
@@ -153,29 +151,3 @@ fs.fstat = fstat;
 fs.close = close;
 
 module.exports = fs;
-
-/* const MOCK_FILE_INFO = {
-    '/path/to/file1.js': 'console.log("file1 contents");',
-    '/path/to/file2.txt': 'file2 contents',
-};
-
-__createMockFiles(MOCK_FILE_INFO);
-
-console.log(mockFiles);
-
-const buffer = Buffer.alloc(256);
-
-open('/path/to/file1.js', (err, fd) => {
-    console.log('error', err);
-    console.log('fd: ', fd);
-});
-
-read(1, buffer, 0, 40, null, (err, bytes) => {
-    console.log('buffer', buffer);
-    console.log('bytes: ', bytes);
-});
-
-read(1, buffer, 0, 40, null, (err, bytes) => {
-    console.log('buffer', buffer);
-    console.log('bytes: ', bytes);
-}); */
